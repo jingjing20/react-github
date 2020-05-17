@@ -1,7 +1,9 @@
 import { withRouter } from 'next/router'
-import Comp from '../compontents/comp';
+import dynamic from 'next/dynamic';
+// import Comp from '../compontents/comp';
+const Comp = dynamic(import('../compontents/comp'))
 import styled from 'styled-components';
-import moment from 'moment';
+// import moment from 'moment';
 
 //styled-components
 const Title = styled.h1`
@@ -11,8 +13,9 @@ const Title = styled.h1`
 const A = ({ router, name, age, time }) => (
   <>
     <Title>jingjing {time}</Title>
+    <Comp></Comp>
     <a>
-      <Comp>A {router.query.id}{name}{age}</Comp>
+      A {router.query.id}{name}{age}
     </a>
     <style jsx>{`
       a{
@@ -24,14 +27,17 @@ const A = ({ router, name, age, time }) => (
 
 A.getInitialProps = async (ctx) => {
   console.log('---------------')
+
+  // webpack 异步加载 分开打包
+  const moment = await import('moment');
   const promise = new Promise(resolve => {
     setTimeout(() => {
       resolve({
         name: 'jingjing',
         age: 20,
-        time: moment(Date.now() - 60 * 1000).fromNow()
+        time: moment.default(Date.now() - 60 * 1000).fromNow()
       })
-    }, 1000)
+    }, 0)
   })
   return await promise
 }
