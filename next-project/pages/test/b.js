@@ -1,4 +1,10 @@
-import React, { useEffect, useLayoutEffect, useState, useReducer } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useReducer,
+  useRef
+} from 'react';
 
 //类组件
 class MyCount extends React.Component {
@@ -49,6 +55,7 @@ function MyCountFunc() {
   // useReducer 接受一个操作
   const [count, dispatchCount] = useReducer(countReducer, 0)    //useReducer实现
   const [name, setName] = useState('jingjing')
+  const inputRef = useRef()  // useRef
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -60,6 +67,7 @@ function MyCountFunc() {
 
   useEffect(() => {
     console.log('Effect invoked')
+    console.log(inputRef)   // useRef
     return () => console.log('Effect deteched')
   })
 
@@ -70,7 +78,7 @@ function MyCountFunc() {
 
   return (
     <div>
-      <input value={name} onChange={(e) => setName(e.target.value)}></input>
+      <input ref={inputRef} value={name} onChange={(e) => setName(e.target.value)}></input>   // useRef
       <button onClick={() => dispatchCount({ type: 'add' })}>{count}</button>
     </div>
   )
