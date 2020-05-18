@@ -1,16 +1,26 @@
 import Link from 'next/link';
 import Router from 'next/router';
 import { Button } from 'antd';
+import { connect } from 'react-redux'
 
 import store from '../store/store';
-export default () => {
+const Index = ({ count, username }) => {
   function goToB() {
     Router.push("/test/b")
   }
   return (
     <>
-      <span>Index</span>
-      <a>index a</a>
+      <span>Count: {count}</span>
+      <a>username: {username}</a>
     </>
   )
 }
+
+export default connect(
+  function mapStateToProps(state) {
+    return {
+      count: state.count.count,
+      username: state.username.username
+    }
+  }
+)(Index)
