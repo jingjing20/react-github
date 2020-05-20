@@ -1,7 +1,7 @@
 module.exports = {
   github: {
     // github_base_url: 'https://api.github.com',
-    // request_token_url: 'https://github.com/login/oauth/access_token',
+    request_token_url: 'https://github.com/login/oauth/authorize',
     client_id: '204d73ec49b937657d99',
     client_secret: '670bd7cbc8199b4f44a81c25aeaed8bc538b2894'
   },

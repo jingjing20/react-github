@@ -1,15 +1,17 @@
-const Koa = require('koa');
-const next = require('next');
-const Router = require('koa-router');
+const Koa = require('koa')
+const next = require('next')
+const Router = require('koa-router')
 const session = require('koa-session')
 const Redis = require('ioredis')
+
+const auth = require('./server/auth')
 
 const RedisSessionStore = require('./server/session-store')
 
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev });
-const handle = app.getRequestHandler();
+const handle = app.getRequestHandler()
 
 // redis client
 const redis = new Redis()
@@ -35,6 +37,9 @@ app.prepare().then(() => {
 
   server.use(session(SESSION_CONFIG, server))
 
+  // 必须放在session后面
+  auth(server)
+
   server.use(async (ctx, next) => {
     // if (!ctx.session.user) {
     //   ctx.session.user = {
@@ -42,7 +47,9 @@ app.prepare().then(() => {
     //     age: 20
     //   }
     // } else {
-    console.log('session is:', ctx.session)
+
+    // console.log('session is:', ctx.session)
+
     // }
     await next()
   })
@@ -70,7 +77,7 @@ app.prepare().then(() => {
   // destory session
   router.get('/destory/user', async (ctx) => {
     // ctx.respond = false
-    ctx.session.user = null
+    ctx.session = null
     ctx.body = 'destory session success'
   })
 

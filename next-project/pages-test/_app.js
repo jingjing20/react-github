@@ -1,6 +1,7 @@
 import App from 'next/app';
 import { Provider } from 'react-redux';
 
+import MyContext from '../lib/my-context';
 import 'antd/dist/antd.css';
 import Layout from '../compontents/Layout';
 import store from '../store/store';
@@ -27,7 +28,9 @@ class Myapp extends App {
     return (
       <Layout>
         <Provider store={store}>
-          <Component {...pageProps} />
+          <MyContext.Provider value="haohao">
+            <Component {...pageProps} />
+          </MyContext.Provider >
         </Provider>
       </Layout>
     )

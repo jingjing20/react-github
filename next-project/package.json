@@ -13,8 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.1.0",
     "@zeit/next-css": "^1.0.1",
     "antd": "^4.2.2",
+    "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-styled-components": "^1.10.7",
     "ioredis": "^4.16.3",
